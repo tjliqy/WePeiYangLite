@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.twtstudio.wepeiyanglite.R;
@@ -13,6 +14,8 @@ import com.twtstudio.wepeiyanglite.support.ApplicationUtils;
 import com.twtstudio.wepeiyanglite.support.PrefUtils;
 import com.twtstudio.wepeiyanglite.support.UserAgent;
 import com.twtstudio.wepeiyanglite.ui.auth.AuthActivity;
+import com.twtstudio.wepeiyanglite.ui.main.CrossfadeDrawerLayoutActvitiy;
+import com.twtstudio.wepeiyanglite.ui.main.MainActivity;
 
 import butterknife.BindView;
 import cn.campusapp.router.Router;
@@ -30,7 +33,7 @@ public class WelcomeActivity extends PActivity<WelcomePresenter> implements Welc
 
     @Override
     protected WelcomePresenter getPresenter() {
-        return new WelcomePresenter(this,this);
+        return new WelcomePresenter(this, this);
     }
 
     @Override
@@ -51,9 +54,11 @@ public class WelcomeActivity extends PActivity<WelcomePresenter> implements Welc
     @Override
     protected void initView() {
         mTvVersionName.setText(UserAgent.getAppVersion());
-        if (!hasCachedLogo){
+        if (!hasCachedLogo) {
             mPresenter.cacheLogo();
         }
+        // TODO: 2016/8/2 测试代码需要删除
+        PrefUtils.setPrefVersion(ApplicationUtils.getVersionName());
     }
 
     @Override
@@ -62,22 +67,24 @@ public class WelcomeActivity extends PActivity<WelcomePresenter> implements Welc
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!PrefUtils.getPreFversion().equals(ApplicationUtils.getVersionName())){
+                if (!PrefUtils.getPreFversion().equals(ApplicationUtils.getVersionName())) {
                     // TODO: 2016/8/1 jump to guide activity
                     //Router.open(WelcomeActivity.this,RouterSchema.authBuilder("twt"));
-                    Intent intent=new Intent(WelcomeActivity.this, AuthActivity.class);
+                    Intent intent = new Intent(WelcomeActivity.this, AuthActivity.class);
                     startActivity(intent);
-
-                }else if (PrefUtils.isLogin()){
+                    Log.d("..", "run: ");
+                } else if (PrefUtils.isLogin()) {
                     // TODO: 2016/8/1 jump to mainactivity
                     //Router.open(WelcomeActivity.this,RouterSchema.authBuilder("twt"));
-                }
-                else {
+                    Intent intent = new Intent(WelcomeActivity.this, CrossfadeDrawerLayoutActvitiy.class);
+                    startActivity(intent);
+                } else {
                     // TODO: 2016/8/1 params to go....
-                    Intent intent=new Intent(WelcomeActivity.this, AuthActivity.class);
+                    Intent intent = new Intent(WelcomeActivity.this, AuthActivity.class);
                     startActivity(intent);
                     //Router.open(WelcomeActivity.this,RouterSchema.authBuilder("twt"));
                 }
+                finish();
             }
         }, 1000);
     }
@@ -89,7 +96,7 @@ public class WelcomeActivity extends PActivity<WelcomePresenter> implements Welc
 
     @Override
     public void setCacheLogoStatue(boolean statue) {
-        hasCachedLogo=statue;
+        hasCachedLogo = statue;
     }
 
 

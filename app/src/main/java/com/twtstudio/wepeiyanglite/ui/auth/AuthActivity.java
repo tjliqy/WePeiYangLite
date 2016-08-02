@@ -2,6 +2,8 @@ package com.twtstudio.wepeiyanglite.ui.auth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.PActivity;
 import com.twtstudio.wepeiyanglite.router.RouterSchema;
 import com.twtstudio.wepeiyanglite.support.ResourceHelper;
+import com.twtstudio.wepeiyanglite.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +136,12 @@ public class AuthActivity extends PActivity<AuthPresenter> implements AuthViewCo
     @Override
     public void showPasswordError(String message) {
         mPasswordView.setError(message);
+    }
+
+    @Override
+    public void toastMessage(String message) {
+        super.toastMessage(message);
+        startActivity(new Intent(this, MainActivity.class));
     }
 
 }

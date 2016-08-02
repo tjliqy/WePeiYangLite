@@ -1,6 +1,7 @@
 package com.twtstudio.wepeiyanglite.ui.auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.twtstudio.wepeiyanglite.R;
@@ -12,6 +13,7 @@ import com.twtstudio.wepeiyanglite.common.ui.views.CircleProgressDialogUtil;
 import com.twtstudio.wepeiyanglite.model.Token;
 import com.twtstudio.wepeiyanglite.support.PrefUtils;
 import com.twtstudio.wepeiyanglite.support.ResourceHelper;
+import com.twtstudio.wepeiyanglite.ui.main.MainActivity;
 
 /**
  * Created by huangyong on 16/5/18.
@@ -58,6 +60,8 @@ public class AuthPresenter extends Presenter {
         public void onNext(Token token) {
             PrefUtils.setToken(token.token);
             PrefUtils.setLogin(true);
+            // TODO: 2016/8/2 改用router
+
             mViewController.toastMessage("登录成功");
             mViewController.dismissLoadingDialog();
         }

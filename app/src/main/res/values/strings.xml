@@ -35,6 +35,17 @@
     <string name="association_news">社团风采</string>
     <string name="college_news">院系动态</string>
 
+    <!--drawer test-->
+    <string name="drawer_item_compact_header">CompactHeader Drawer</string>
+    <string name="drawer_item_action_bar_drawer">ActionBar Drawer</string>
+    <string name="drawer_item_multi_drawer">Multi Drawer</string>
+    <string name="drawer_item_advanced_drawer">Advanced Drawer</string>
+    <string name="drawer_item_non_translucent_status_drawer">NonTranslucentStatus Drawer</string>
+    <string name="drawer_item_section_header">Section Header</string>
+    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_contact">Contact</string>
+    <string name="drawer_item_crossfade_drawer_layout_drawer">CrossfadeDrawerLayout</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_flash_screen">FlashScreenActivity</string>
