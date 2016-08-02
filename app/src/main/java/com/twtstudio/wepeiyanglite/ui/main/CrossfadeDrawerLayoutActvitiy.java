@@ -3,6 +3,7 @@ package com.twtstudio.wepeiyanglite.ui.main;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +37,11 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
     private AccountHeader mAccountHeader = null;
     private Drawer mDrawer = null;
     private CrossfadeDrawerLayout mCrossfadeDrawerLayout = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

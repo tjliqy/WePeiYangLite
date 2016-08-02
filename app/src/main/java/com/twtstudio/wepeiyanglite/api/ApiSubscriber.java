@@ -7,6 +7,7 @@ import com.twtstudio.wepeiyanglite.utils.ToastUtils;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
 /**
@@ -51,7 +52,10 @@ public class ApiSubscriber<T> extends Subscriber<T> {
             toastMessage("网络中断，请检查您的网络状态");
         } else if (e instanceof SocketTimeoutException) {
             toastMessage("网络连接超时");
-        } else {
+        } else if (e instanceof HttpException){
+            toastMessage("Http错误"+((HttpException) e).code());
+        }
+        else {
             toastMessage("未知错误: " + e.toString());
             // TODO: 2016/8/1 log测试代码 
             try {

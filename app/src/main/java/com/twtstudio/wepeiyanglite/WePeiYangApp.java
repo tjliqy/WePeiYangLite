@@ -3,7 +3,13 @@ package com.twtstudio.wepeiyanglite;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.twtstudio.wepeiyanglite.router.RouterSchema;
 import com.twtstudio.wepeiyanglite.router.WePeiYangRouter;
 import com.twtstudio.wepeiyanglite.router.base.IWePeiYangRouteTableInitializer;
@@ -28,6 +34,7 @@ public class WePeiYangApp extends Application {
         sContext=getApplicationContext();
         //initRouter();
         //testInit();
+        initDrawerImageLoader();
     }
 
     public static Context getContext() {
@@ -65,4 +72,25 @@ public class WePeiYangApp extends Application {
         Router.setDebugMode(true);
     }
 
+    //init the ImageLoader of Material-Drawer
+    private void initDrawerImageLoader()
+    {
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+            @Override
+            public Drawable placeholder(Context ctx, String tag) {
+                //占位符暂不处理
+                return super.placeholder(ctx, tag);
+            }
+
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Glide.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Glide.clear(imageView);
+            }
+        });
+    }
 }

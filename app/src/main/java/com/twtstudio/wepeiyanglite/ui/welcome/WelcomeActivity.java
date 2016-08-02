@@ -76,7 +76,7 @@ public class WelcomeActivity extends PActivity<WelcomePresenter> implements Welc
                 } else if (PrefUtils.isLogin()) {
                     // TODO: 2016/8/1 jump to mainactivity
                     //Router.open(WelcomeActivity.this,RouterSchema.authBuilder("twt"));
-                    Intent intent = new Intent(WelcomeActivity.this, CrossfadeDrawerLayoutActvitiy.class);
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     // TODO: 2016/8/1 params to go....

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -78,10 +79,8 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        getSupportActionBar().setTitle("drawer");
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         final IProfile profile = new ProfileDrawerItem().withName("JCY")
                 .withEmail("qq976885345@hotmail.com")
                 .withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
@@ -153,7 +152,6 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
                 return mCrossfadeDrawerLayout.isCrossfaded();
             }
         });
-
     }
 
     @Override
