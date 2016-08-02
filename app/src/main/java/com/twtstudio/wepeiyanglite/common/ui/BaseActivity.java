@@ -8,14 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.twtstudio.wepeiyanglite.common.IViewController;
 import com.twtstudio.wepeiyanglite.common.ui.views.LoadingDialog;
+import com.twtstudio.wepeiyanglite.utils.ToastUtils;
 
 import butterknife.ButterKnife;
 
 /**
  * Created by huangyong on 16/5/18.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements IViewController{
 
     protected LoadingDialog mLoadingDialog;
 
@@ -63,6 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
     public void showLoadingDialog() {
         if (mLoadingDialog == null) {
             mLoadingDialog = new LoadingDialog(this);
@@ -70,6 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mLoadingDialog.show();
     }
 
+    @Override
     public void showLoadingDialog(String message) {
         if (mLoadingDialog == null) {
             mLoadingDialog = new LoadingDialog(this);
@@ -78,11 +82,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         mLoadingDialog.show();
     }
 
+    @Override
     public void dismissLoadingDialog() {
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
     }
 
-
+    @Override
+    public void toastMessage(String message) {
+        ToastUtils.showMessage(this,message);
+    }
 }

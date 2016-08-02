@@ -135,8 +135,4 @@ public class AuthActivity extends PActivity<AuthPresenter> implements AuthViewCo
         mPasswordView.setError(message);
     }
 
-    @Override
-    public void toastMessage(String message) {
-        Toast.makeText(AuthActivity.this, message, Toast.LENGTH_SHORT).show();
-    }
 }

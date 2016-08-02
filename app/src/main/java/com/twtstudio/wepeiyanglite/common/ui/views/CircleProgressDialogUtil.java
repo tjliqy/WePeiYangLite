@@ -11,7 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 public class CircleProgressDialogUtil {
     private MaterialDialog mDialog;
 
-    public  void showDialog(Context context, String title, String content) {
+    public void showDialog(Context context, String title, String content) {
         mDialog = new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
@@ -20,9 +20,17 @@ public class CircleProgressDialogUtil {
 
     }
 
-    public  void dismissDialog(){
+    public void dismissDialog() {
         if (mDialog != null) {
             mDialog.dismiss();
         }
+    }
+
+    private static class SingletonHolder {
+        private static final CircleProgressDialogUtil INSTANCE = new CircleProgressDialogUtil();
+    }
+
+    public static CircleProgressDialogUtil getInstance() {
+        return SingletonHolder.INSTANCE;
     }
 }

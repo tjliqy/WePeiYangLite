@@ -23,16 +23,23 @@
         android:supportsRtl="true"
         android:name=".WePeiYangApp"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
 
-        </activity>
-        <activity android:name=".ui.auth.AuthActivity">
+        <!-- Welcome Activity -->
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
+            android:label="@string/title_activity_welcome"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
+        </activity>
+
+        <activity android:name=".MainActivity"/>
+
+        <activity android:name=".ui.auth.AuthActivity"/>
+
     </application>
 
 </manifest>
