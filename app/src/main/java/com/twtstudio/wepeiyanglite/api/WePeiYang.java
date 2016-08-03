@@ -1,5 +1,7 @@
 package com.twtstudio.wepeiyanglite.api;
 
+import com.twtstudio.wepeiyanglite.model.GalleryIndexItem;
+import com.twtstudio.wepeiyanglite.model.GalleryPhotos;
 import com.twtstudio.wepeiyanglite.model.NewsItem;
 import com.twtstudio.wepeiyanglite.model.Token;
 
@@ -24,4 +26,11 @@ public interface WePeiYang {
     @GET("news/type/{type}")
     Observable<ApiResponse<List<NewsItem>>> getNewsList(@Path("type") int type, @Query("page") int page);
 
+    //不要脸和云鹏要的主站图片主页接口
+    @GET("http://www.twt.edu.cn/mapi/galleries/index")
+    Observable<List<GalleryIndexItem>> getGalleryIndex();
+
+    //不要脸要的照片接口
+    @GET("http://www.twt.edu.cn/mapi/galleries/{id}/photos")
+    Observable<List<GalleryPhotos>> getGalleryPhotos(@Path("id") int id);
 }

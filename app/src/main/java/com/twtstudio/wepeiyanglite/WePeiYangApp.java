@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.github.florent37.glidepalette.GlidePalette;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.twtstudio.wepeiyanglite.router.RouterSchema;
@@ -63,17 +64,6 @@ public class WePeiYangApp extends Application {
 
     }
 
-    private void testInit()
-    {
-        Router.initActivityRouter(sContext, new IActivityRouteTableInitializer() {
-            @Override
-            public void initRouterTable(Map<String, Class<? extends Activity>> map) {
-                map.put(RouterSchema.AUTH,AuthActivity.class);
-            }
-        });
-        Router.setDebugMode(true);
-    }
-
     //init the ImageLoader of Material-Drawer
     private void initDrawerImageLoader()
     {
@@ -91,8 +81,7 @@ public class WePeiYangApp extends Application {
 
             @Override
             public void cancel(ImageView imageView) {
-                Glide.clear(imageView);
-            }
+                Glide.clear(imageView);}
         });
     }
 }
