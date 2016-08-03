@@ -2,8 +2,9 @@ package com.twtstudio.wepeiyanglite.api;
 
 import android.text.TextUtils;
 
-import com.twtstudio.wepeiyanglite.BuildConfig;
+
 import com.twtstudio.wepeiyanglite.JniUtils;
+import com.twtstudio.wepeiyanglite.model.GalleryIndexItem;
 import com.twtstudio.wepeiyanglite.model.NewsItem;
 import com.twtstudio.wepeiyanglite.model.Token;
 import com.twtstudio.wepeiyanglite.support.PrefUtils;
@@ -130,7 +131,7 @@ public class WePeiYangClient {
             return originUrl.newBuilder()
                     .addQueryParameter("t", timestamp)
                     .addQueryParameter("sign", sign)
-                    .addQueryParameter("app_key",JniUtils.getInstance().getAppKey())
+                    .addQueryParameter("app_key", JniUtils.getInstance().getAppKey())
                     .build();
         }
 
@@ -206,10 +207,17 @@ public class WePeiYangClient {
         addSubscription(tag, subscription);
     }
 
-    public void getNewsList(Object tag, Subscriber subscriber,int type,  int page) {
+    public void getNewsList(Object tag, Subscriber subscriber, int type, int page) {
         Subscription subscription = mService.getNewsList(type, page)
                 .map(new ResponseTransformer<List<NewsItem>>())
                 .compose(ApiUtils.<List<NewsItem>>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag, subscription);
+    }
+
+    public void getGalleryIndex(Object tag, Subscriber subscriber) {
+        Subscription subscription = mService.getGalleryIndex()
+                .compose(ApiUtils.<List<GalleryIndexItem>>applySchedulers())
                 .subscribe(subscriber);
         addSubscription(tag, subscription);
     }

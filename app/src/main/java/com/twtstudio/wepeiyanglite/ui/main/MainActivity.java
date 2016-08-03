@@ -34,6 +34,7 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.PActivity;
+import com.twtstudio.wepeiyanglite.ui.gallery.GalleryFragment;
 
 import butterknife.BindView;
 
@@ -70,7 +71,9 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
 
     @Override
     protected void initView() {
-
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_container,new GalleryFragment())
+                .commit();
     }
 
     @Override
@@ -81,6 +84,26 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initDrawer(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        outState = mDrawer.saveInstanceState(outState);
+        outState = mAccountHeader.saveInstanceState(outState);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawer != null && mDrawer.isDrawerOpen()) {
+            mDrawer.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void initDrawer(Bundle savedInstanceState){
         final IProfile profile = new ProfileDrawerItem().withName("JCY")
                 .withEmail("qq976885345@hotmail.com")
                 .withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
@@ -111,9 +134,11 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        //点击事件
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
                         }
+
                         return false;
                     }
                 })
@@ -152,21 +177,5 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
                 return mCrossfadeDrawerLayout.isCrossfaded();
             }
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        outState = mDrawer.saveInstanceState(outState);
-        outState = mAccountHeader.saveInstanceState(outState);
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawer != null && mDrawer.isDrawerOpen()) {
-            mDrawer.closeDrawer();
-        } else {
-            super.onBackPressed();
-        }
     }
 }
