@@ -37,6 +37,7 @@ public class GalleryFragment extends PFragment<GalleryPresenter> implements Gall
         //refresh
         mPresenter.getGallery();
         mGalleryRcv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter.showFooter();
         mGalleryRcv.setAdapter(mAdapter);
     }
 

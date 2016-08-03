@@ -19,7 +19,7 @@ public class RouterSchema {
 
     public static String urlBuilder(String prefix, String ...args) {
         for(String arg : args){
-            prefix += arg + "/";
+            prefix += "/" + arg;
         }
         return prefix;
     }
