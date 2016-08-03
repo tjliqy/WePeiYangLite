@@ -15,6 +15,7 @@ import com.twtstudio.wepeiyanglite.router.WePeiYangRouter;
 import com.twtstudio.wepeiyanglite.router.base.IWePeiYangRouteTableInitializer;
 import com.twtstudio.wepeiyanglite.router.interceptors.AuthInterceptor;
 import com.twtstudio.wepeiyanglite.ui.auth.AuthActivity;
+import com.twtstudio.wepeiyanglite.ui.main.MainActivity;
 
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public class WePeiYangApp extends Application {
     public void onCreate() {
         super.onCreate();
         sContext=getApplicationContext();
-        //initRouter();
+        initRouter();
         //testInit();
         initDrawerImageLoader();
     }
@@ -53,6 +54,7 @@ public class WePeiYangApp extends Application {
                 //TODO: 添加activity的路由表
 
                 map.put(RouterSchema.AUTH, AuthActivity.class);
+                map.put(RouterSchema.MAIN, MainActivity.class);
             }
         });
         router.addInterceptor(new AuthInterceptor());
