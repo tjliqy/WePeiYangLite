@@ -2,6 +2,7 @@ package com.twtstudio.wepeiyanglite.common.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +14,31 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     protected List<T> mDataSet = new ArrayList<>();
     protected Context mContext;
 
+    protected boolean isShowFooter = false;
+
+    public void showFooter(){
+        isShowFooter = true;
+    }
+
+    public void hideFooter(){
+        isShowFooter = false;
+    }
     public BaseAdapter(Context context) {
         mContext = context;
     }
 
     @Override
     public int getItemCount() {
-        return mDataSet.size() + 1;
+        if(isShowFooter){
+            return mDataSet.size() + 1;
+        }
+        return mDataSet.size();
     }
 
     public void refreshItems(List<T> items) {
         mDataSet.clear();
         mDataSet.addAll(items);
+        hideFooter();
         notifyDataSetChanged();
     }
 
