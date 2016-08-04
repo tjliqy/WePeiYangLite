@@ -1,4 +1,4 @@
-package com.twtstudio.wepeiyanglite.ui.gallery;
+package com.twtstudio.wepeiyanglite.ui.gallery.GalleryPhoto;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -15,38 +15,35 @@ import com.github.florent37.glidepalette.GlidePalette;
 import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.BaseAdapter;
 import com.twtstudio.wepeiyanglite.common.ui.BaseViewHolder;
-import com.twtstudio.wepeiyanglite.model.GalleryIndexItem;
-import com.twtstudio.wepeiyanglite.router.RouterSchema;
+import com.twtstudio.wepeiyanglite.model.GalleryPhotos;
 
 import butterknife.BindView;
-import cn.campusapp.router.Router;
-import cn.campusapp.router.route.ActivityRoute;
 
 /**
- * Created by jcy on 2016/8/3.
+ * Created by jcy on 2016/8/4.
  */
 
-public class GalleryAdapter extends BaseAdapter<GalleryIndexItem> {
+public class PhotoAdapter extends BaseAdapter<GalleryPhotos> {
 
     private static final int ITEM_NORMAL = 0;
     private static final int ITEM_FOOTER = 1;
 
-    public GalleryAdapter(Context context) {
+    public PhotoAdapter(Context context) {
         super(context);
     }
 
-    static class sGalleryItemHolder extends BaseViewHolder {
+    static class sPhotoItemHolder extends BaseViewHolder {
 
-        @BindView(R.id.gallery_index_photo)
-        ImageView mIndexPhotoView;
-        @BindView(R.id.gallery_title)
-        TextView mTitleView;
-        @BindView(R.id.gallery_description)
-        TextView mDescriptionView;
-        @BindView(R.id.gallery_card_view)
+        @BindView(R.id.photo_image)
+        ImageView mPhotoImage;
+        @BindView(R.id.photo_title)
+        TextView mPhotoTitle;
+        @BindView(R.id.photo_author)
+        TextView mPhotoAuthor;
+        @BindView(R.id.photo_card_view)
         CardView mCardView;
 
-        public sGalleryItemHolder(View itemView) {
+        public sPhotoItemHolder(View itemView) {
             super(itemView);
         }
     }
@@ -67,7 +64,7 @@ public class GalleryAdapter extends BaseAdapter<GalleryIndexItem> {
         if (viewType == ITEM_FOOTER) {
             return new FooterHolder(inflater.inflate(R.layout.footer, parent, false));
         } else {
-            return new sGalleryItemHolder(inflater.inflate(R.layout.item_gallery_index, parent, false));
+            return new sPhotoItemHolder(inflater.inflate(R.layout.item_photo, parent, false));
         }
     }
 
@@ -75,26 +72,19 @@ public class GalleryAdapter extends BaseAdapter<GalleryIndexItem> {
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         int type = getItemViewType(position);
         if (type == ITEM_NORMAL) {
-            sGalleryItemHolder itemHolder = (sGalleryItemHolder) holder;
-            final GalleryIndexItem item = mDataSet.get(position);
-            itemHolder.mTitleView.setText(item.title);
-            itemHolder.mDescriptionView.setText(item.description);
-            Glide.with(mContext).load(item.coverUrl)
-                    .listener(GlidePalette.with(item.coverUrl)
+            sPhotoItemHolder itemHolder = (sPhotoItemHolder) holder;
+            final GalleryPhotos item = mDataSet.get(position);
+            itemHolder.mPhotoAuthor.setText(item.author);
+            itemHolder.mPhotoTitle.setText(item.title);
+            Glide.with(mContext).load(item.thumbnailUrl)
+                    .listener(GlidePalette.with(item.thumbnailUrl)
                             .use(GlidePalette.Profile.VIBRANT)
                             .intoBackground(itemHolder.mCardView)
                     )
-                    .into(itemHolder.mIndexPhotoView);
-            itemHolder.mCardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ActivityRoute activityRoute= (ActivityRoute) Router.getRoute(RouterSchema.PHOTO_PREFIX + "/" + item.id + "/" + item.description + "/" + item.title );
-                    activityRoute.withParams("url",item.coverThumbnailUrl).open();
-                }
-            });
+                    .into(itemHolder.mPhotoImage);
         }
-    }
 
+    }
     @Override
     public int getItemViewType(int position) {
         if (position == mDataSet.size()) {

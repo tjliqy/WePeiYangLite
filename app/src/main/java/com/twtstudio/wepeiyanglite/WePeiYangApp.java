@@ -16,6 +16,7 @@ import com.twtstudio.wepeiyanglite.router.WePeiYangRouter;
 import com.twtstudio.wepeiyanglite.router.base.IWePeiYangRouteTableInitializer;
 import com.twtstudio.wepeiyanglite.router.interceptors.AuthInterceptor;
 import com.twtstudio.wepeiyanglite.ui.auth.AuthActivity;
+import com.twtstudio.wepeiyanglite.ui.gallery.GalleryPhoto.PhotoActivity;
 import com.twtstudio.wepeiyanglite.ui.main.MainActivity;
 
 import java.util.Map;
@@ -33,7 +34,7 @@ public class WePeiYangApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        sContext=getApplicationContext();
+        sContext = getApplicationContext();
         initRouter();
         //testInit();
         initDrawerImageLoader();
@@ -43,8 +44,8 @@ public class WePeiYangApp extends Application {
         return sContext;
     }
 
-    private void initRouter(){
-         WePeiYangRouter router = new WePeiYangRouter(getApplicationContext(), new IWePeiYangRouteTableInitializer() {
+    private void initRouter() {
+        WePeiYangRouter router = new WePeiYangRouter(getApplicationContext(), new IWePeiYangRouteTableInitializer() {
             @Override
             public void initInterceptorTable(Map<String, String> interceptorTable) {
                 //TODO: 不知道
@@ -56,6 +57,7 @@ public class WePeiYangApp extends Application {
 
                 map.put(RouterSchema.AUTH, AuthActivity.class);
                 map.put(RouterSchema.MAIN, MainActivity.class);
+                map.put(RouterSchema.PHOTO, PhotoActivity.class);
             }
         });
         router.addInterceptor(new AuthInterceptor());
@@ -65,8 +67,7 @@ public class WePeiYangApp extends Application {
     }
 
     //init the ImageLoader of Material-Drawer
-    private void initDrawerImageLoader()
-    {
+    private void initDrawerImageLoader() {
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public Drawable placeholder(Context ctx, String tag) {
@@ -81,7 +82,8 @@ public class WePeiYangApp extends Application {
 
             @Override
             public void cancel(ImageView imageView) {
-                Glide.clear(imageView);}
+                Glide.clear(imageView);
+            }
         });
     }
 }

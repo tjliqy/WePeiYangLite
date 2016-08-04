@@ -14,22 +14,23 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     protected List<T> mDataSet = new ArrayList<>();
     protected Context mContext;
 
-    protected boolean isShowFooter = false;
+    protected boolean isShowFooter = true;
 
-    public void showFooter(){
+    public void showFooter() {
         isShowFooter = true;
     }
 
-    public void hideFooter(){
+    public void hideFooter() {
         isShowFooter = false;
     }
+
     public BaseAdapter(Context context) {
         mContext = context;
     }
 
     @Override
     public int getItemCount() {
-        if(isShowFooter){
+        if (isShowFooter) {
             return mDataSet.size() + 1;
         }
         return mDataSet.size();

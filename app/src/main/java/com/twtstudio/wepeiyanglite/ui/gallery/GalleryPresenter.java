@@ -25,7 +25,7 @@ public class GalleryPresenter extends Presenter {
     }
 
     public void getGallery() {
-        WePeiYangClient.getInstance().getGalleryIndex(WePeiYangApp.getContext(), new ApiSubscriber(WePeiYangApp.getContext(), mListener));
+        WePeiYangClient.getInstance().getGalleryIndex(mContext, new ApiSubscriber(mContext, mListener));
     }
 
     private OnNextListener<List<GalleryIndexItem>> mListener = new OnNextListener<List<GalleryIndexItem>>() {

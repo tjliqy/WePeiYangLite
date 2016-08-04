@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.twtstudio.wepeiyanglite.JniUtils;
 import com.twtstudio.wepeiyanglite.model.GalleryIndexItem;
+import com.twtstudio.wepeiyanglite.model.GalleryPhotos;
 import com.twtstudio.wepeiyanglite.model.NewsItem;
 import com.twtstudio.wepeiyanglite.model.Token;
 import com.twtstudio.wepeiyanglite.support.PrefUtils;
@@ -222,4 +223,10 @@ public class WePeiYangClient {
         addSubscription(tag, subscription);
     }
 
+    public void getGalleryPhotos(Object tag,Subscriber subscriber,int id){
+        Subscription subscription=mService.getGalleryPhotos(id)
+                .compose(ApiUtils.<List<GalleryPhotos>>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag,subscription);
+    }
 }

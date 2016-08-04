@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">微北洋</string>
+    <string name="app_name">微北洋Lite</string>
     <string name="toast_network_failed">无法连接到网络</string>
     <string name="empty_error">不能为空</string>
 
     <!-- Welcome Activity -->
-    <string name="title_activity_welcome">微北洋</string>
+    <string name="title_activity_welcome">微北洋Lite</string>
 
     <!-- Main Activity -->
     <string name="title_activity_main">Main</string>

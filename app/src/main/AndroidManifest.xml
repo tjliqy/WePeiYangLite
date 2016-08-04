@@ -45,6 +45,7 @@
             android:name=".ui.main.CrossfadeDrawerLayoutActvitiy"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
 
+        <activity android:name=".ui.gallery.GalleryPhoto.PhotoActivity"/>
     </application>
 
 </manifest>
