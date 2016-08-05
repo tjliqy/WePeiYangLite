@@ -11,21 +11,28 @@ public class RouterSchema {
 
     public static final String AUTH_PREFIX = SCHEMA_PREFIX + "auth";
 
-    public static final String AUTH = AUTH_PREFIX+ "/:s{type}";
+    public static final String AUTH = AUTH_PREFIX + "/:s{type}";
 
     public static final String MAIN_PREFIX = SCHEMA_PREFIX + "main";
 
     public static final String MAIN = MAIN_PREFIX;
 
-    public static String urlBuilder(String prefix, String ...args) {
-        for(String arg : args){
-            prefix += "/" + arg;
-        }
-        return prefix;
-    }
+    public static final String PHOTO_PREFIX = SCHEMA_PREFIX + "photo";
+
+    public static final String PHOTO = PHOTO_PREFIX + "/:i{id}" + "/:s{content}" + "/:s{name}";
+
+    public static final String CLASSROOM_PREFIX = SCHEMA_PREFIX + "roomdetail";
+
+    public static final String CLASSROOM = CLASSROOM_PREFIX + "/:i{bid}" + "/:s{name}";
 
     public static final String HOME = SCHEMA_PREFIX + "home";
 
     public static final String GPA = SCHEMA_PREFIX + "apps/gpa";
 
+    public static String urlBuilder(String prefix, String... args) {
+        for (String arg : args) {
+            prefix += "/" + arg;
+        }
+        return prefix;
+    }
 }

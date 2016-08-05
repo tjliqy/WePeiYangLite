@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">微北洋</string>
+    <string name="app_name">微北洋Lite</string>
     <string name="toast_network_failed">无法连接到网络</string>
     <string name="empty_error">不能为空</string>
 
     <!-- Welcome Activity -->
-    <string name="title_activity_welcome">微北洋</string>
+    <string name="title_activity_welcome">微北洋Lite</string>
 
     <!-- Main Activity -->
     <string name="title_activity_main">Main</string>
@@ -36,8 +36,8 @@
     <string name="college_news">院系动态</string>
 
     <!--drawer test-->
-    <string name="drawer_item_compact_header">CompactHeader Drawer</string>
-    <string name="drawer_item_action_bar_drawer">ActionBar Drawer</string>
+    <string name="drawer_item_gallery">Gallery</string>
+    <string name="drawer_item_study_room">自习室</string>
     <string name="drawer_item_multi_drawer">Multi Drawer</string>
     <string name="drawer_item_advanced_drawer">Advanced Drawer</string>
     <string name="drawer_item_non_translucent_status_drawer">NonTranslucentStatus Drawer</string>

@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,6 +26,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.MiniDrawer;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
+import com.mikepenz.materialdrawer.model.BaseDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -35,6 +39,7 @@ import com.mikepenz.materialize.util.UIUtils;
 import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.PActivity;
 import com.twtstudio.wepeiyanglite.ui.gallery.GalleryFragment;
+import com.twtstudio.wepeiyanglite.ui.studyRoom.StudyRoomFragment;
 
 import butterknife.BindView;
 
@@ -48,6 +53,9 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
     private AccountHeader mAccountHeader = null;
     private Drawer mDrawer = null;
     private CrossfadeDrawerLayout mCrossfadeDrawerLayout = null;
+
+    private GalleryFragment mGalleryFragment;
+    private StudyRoomFragment mStudyRoomFragment;
 
     @Override
     protected MainPresenter getPresenter() {
@@ -71,8 +79,9 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
 
     @Override
     protected void initView() {
+        mGalleryFragment=new GalleryFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_container,new GalleryFragment())
+                .replace(R.id.frame_container,mGalleryFragment)
                 .commit();
     }
 
@@ -122,8 +131,9 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
                 .withGenerateMiniDrawer(true)
                 .withAccountHeader(mAccountHeader)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_sun).withIdentifier(1),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar_drawer).withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_gallery).withIcon(GoogleMaterial.Icon.gmd_sun).withIdentifier(1),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_study_room).withIcon(FontAwesome.Icon.faw_home).withIdentifier(2),
+                        //new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar_drawer).withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(new BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
                         new PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_advanced_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
@@ -135,10 +145,14 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         //点击事件
-                        if (drawerItem instanceof Nameable) {
-                            Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
+//                        if (drawerItem instanceof Nameable) {
+//                            Toast.makeText(MainActivity.this, ((Nameable) drawerItem).getName().getText(MainActivity.this), Toast.LENGTH_SHORT).show();
+//                        }
+                        if (drawerItem!=null){
+                            replaceFragment((int) drawerItem.getIdentifier());
+                            BaseDrawerItem item = (BaseDrawerItem) drawerItem;
+                            //setTitle(item.getName().getText());
                         }
-
                         return false;
                     }
                 })
@@ -177,5 +191,31 @@ public class MainActivity extends PActivity<MainPresenter> implements MainViewCo
                 return mCrossfadeDrawerLayout.isCrossfaded();
             }
         });
+    }
+
+    private void replaceFragment(int position){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = null;
+        switch (position){
+            case 1:
+                if (mGalleryFragment == null){
+                    mGalleryFragment = new GalleryFragment();
+                }
+                fragment = mGalleryFragment;
+                break;
+            case 2:
+                if (mStudyRoomFragment == null){
+                    mStudyRoomFragment = new StudyRoomFragment();
+                }
+                fragment = mStudyRoomFragment;
+                break;
+        }
+        fragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.frame_container,fragment)
+                .commit();
+    }
+    private void setMainTitle(String s){
+        getSupportActionBar().setTitle(s);
     }
 }

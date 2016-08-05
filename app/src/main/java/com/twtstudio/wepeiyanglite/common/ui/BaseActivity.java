@@ -44,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IViewCon
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         ButterKnife.bind(this);
+        actionStart(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(getStatusbarColor()));
         }

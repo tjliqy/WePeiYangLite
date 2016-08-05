@@ -4,8 +4,11 @@ import android.text.TextUtils;
 
 
 import com.twtstudio.wepeiyanglite.JniUtils;
+import com.twtstudio.wepeiyanglite.model.AvailableRoom;
 import com.twtstudio.wepeiyanglite.model.GalleryIndexItem;
+import com.twtstudio.wepeiyanglite.model.GalleryPhotos;
 import com.twtstudio.wepeiyanglite.model.NewsItem;
+import com.twtstudio.wepeiyanglite.model.SchoolBuildings;
 import com.twtstudio.wepeiyanglite.model.Token;
 import com.twtstudio.wepeiyanglite.support.PrefUtils;
 import com.twtstudio.wepeiyanglite.support.UserAgent;
@@ -222,4 +225,26 @@ public class WePeiYangClient {
         addSubscription(tag, subscription);
     }
 
+    public void getGalleryPhotos(Object tag, Subscriber subscriber, int id) {
+        Subscription subscription = mService.getGalleryPhotos(id)
+                .compose(ApiUtils.<List<GalleryPhotos>>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag, subscription);
+    }
+
+    public void getBuildingsId(Object tag, Subscriber subscriber) {
+        Subscription subscription = mService.getBuildingsId()
+                .map(new ResponseTransformer<SchoolBuildings>())
+                .compose(ApiUtils.<SchoolBuildings>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag, subscription);
+    }
+
+    public void getAvailableRooms(Object tag ,Subscriber subscriber,int bid ,String timeStamp){
+        Subscription subscription=mService.getAvailableRooms(bid,timeStamp)
+                .map(new ResponseTransformer<List<String>>())
+                .compose(ApiUtils.<List<String>>applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag ,subscription);
+    }
 }
