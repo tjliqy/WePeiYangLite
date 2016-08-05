@@ -1,52 +1,42 @@
-package com.twtstudio.wepeiyanglite.ui.gallery;
+package com.twtstudio.wepeiyanglite.ui.studyRoom;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.github.florent37.glidepalette.BitmapPalette;
-import com.github.florent37.glidepalette.GlidePalette;
 import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.BaseAdapter;
 import com.twtstudio.wepeiyanglite.common.ui.BaseViewHolder;
-import com.twtstudio.wepeiyanglite.model.GalleryIndexItem;
+import com.twtstudio.wepeiyanglite.model.SchoolBuildings;
 import com.twtstudio.wepeiyanglite.router.RouterSchema;
 
 import butterknife.BindView;
 import cn.campusapp.router.Router;
-import cn.campusapp.router.route.ActivityRoute;
 
 /**
- * Created by jcy on 2016/8/3.
+ * Created by jcy on 2016/8/4.
  */
 
-public class GalleryAdapter extends BaseAdapter<GalleryIndexItem> {
+public class StudyBuildingsAdapter extends BaseAdapter<SchoolBuildings.BuildingsBean> {
 
     private static final int ITEM_NORMAL = 0;
     private static final int ITEM_FOOTER = 1;
 
-    public GalleryAdapter(Context context) {
+    public StudyBuildingsAdapter(Context context) {
         super(context);
     }
 
-    static class sGalleryItemHolder extends BaseViewHolder {
-
-        @BindView(R.id.gallery_index_photo)
-        ImageView mIndexPhotoView;
-        @BindView(R.id.gallery_title)
-        TextView mTitleView;
-        @BindView(R.id.gallery_description)
-        TextView mDescriptionView;
-        @BindView(R.id.gallery_card_view)
+    static class sBuildingHolder extends BaseViewHolder {
+        @BindView(R.id.school_build_number)
+        TextView mBuildingNameView;
+        @BindView(R.id.school_build_card)
         CardView mCardView;
 
-        public sGalleryItemHolder(View itemView) {
+        public sBuildingHolder(View itemView) {
             super(itemView);
         }
     }
@@ -67,7 +57,7 @@ public class GalleryAdapter extends BaseAdapter<GalleryIndexItem> {
         if (viewType == ITEM_FOOTER) {
             return new FooterHolder(inflater.inflate(R.layout.footer, parent, false));
         } else {
-            return new sGalleryItemHolder(inflater.inflate(R.layout.item_gallery_index, parent, false));
+            return new sBuildingHolder(inflater.inflate(R.layout.item_school_building, parent, false));
         }
     }
 
@@ -75,21 +65,13 @@ public class GalleryAdapter extends BaseAdapter<GalleryIndexItem> {
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         int type = getItemViewType(position);
         if (type == ITEM_NORMAL) {
-            sGalleryItemHolder itemHolder = (sGalleryItemHolder) holder;
-            final GalleryIndexItem item = mDataSet.get(position);
-            itemHolder.mTitleView.setText(item.title);
-            itemHolder.mDescriptionView.setText(item.description);
-            Glide.with(mContext).load(item.coverUrl)
-                    .listener(GlidePalette.with(item.coverUrl)
-                            .use(GlidePalette.Profile.VIBRANT)
-                            .intoBackground(itemHolder.mCardView)
-                    )
-                    .into(itemHolder.mIndexPhotoView);
+            sBuildingHolder itemHolder = (sBuildingHolder) holder;
+            final SchoolBuildings.BuildingsBean item = mDataSet.get(position);
+            itemHolder.mBuildingNameView.setText(item.name + "楼");
             itemHolder.mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ActivityRoute activityRoute = (ActivityRoute) Router.getRoute(RouterSchema.PHOTO_PREFIX + "/" + item.id + "/  " + item.description + "/" + item.title);
-                    activityRoute.withParams("url", item.coverThumbnailUrl).open();
+                    Router.open(RouterSchema.CLASSROOM_PREFIX+"/"+item.id+"/"+item.name);
                 }
             });
         }

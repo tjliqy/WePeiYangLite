@@ -18,6 +18,7 @@ import com.twtstudio.wepeiyanglite.router.interceptors.AuthInterceptor;
 import com.twtstudio.wepeiyanglite.ui.auth.AuthActivity;
 import com.twtstudio.wepeiyanglite.ui.gallery.GalleryPhoto.PhotoActivity;
 import com.twtstudio.wepeiyanglite.ui.main.MainActivity;
+import com.twtstudio.wepeiyanglite.ui.studyRoom.detail.DetailActivity;
 
 import java.util.Map;
 
@@ -58,6 +59,7 @@ public class WePeiYangApp extends Application {
                 map.put(RouterSchema.AUTH, AuthActivity.class);
                 map.put(RouterSchema.MAIN, MainActivity.class);
                 map.put(RouterSchema.PHOTO, PhotoActivity.class);
+                map.put(RouterSchema.CLASSROOM, DetailActivity.class);
             }
         });
         router.addInterceptor(new AuthInterceptor());

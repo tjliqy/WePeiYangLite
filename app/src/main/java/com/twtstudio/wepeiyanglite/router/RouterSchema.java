@@ -19,7 +19,11 @@ public class RouterSchema {
 
     public static final String PHOTO_PREFIX = SCHEMA_PREFIX + "photo";
 
-    public static final String PHOTO = PHOTO_PREFIX + "/:i{id}" + "/:s{content}" + "/:s{name}" ;
+    public static final String PHOTO = PHOTO_PREFIX + "/:i{id}" + "/:s{content}" + "/:s{name}";
+
+    public static final String CLASSROOM_PREFIX = SCHEMA_PREFIX + "roomdetail";
+
+    public static final String CLASSROOM = CLASSROOM_PREFIX + "/:i{bid}" + "/:s{name}";
 
     public static final String HOME = SCHEMA_PREFIX + "home";
 

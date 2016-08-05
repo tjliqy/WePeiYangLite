@@ -46,6 +46,8 @@
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
 
         <activity android:name=".ui.gallery.GalleryPhoto.PhotoActivity"/>
+        <activity android:name=".ui.studyRoom.detail.DetailActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus"/>
     </application>
 
 </manifest>

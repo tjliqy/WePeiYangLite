@@ -1,8 +1,10 @@
 package com.twtstudio.wepeiyanglite.api;
 
+import com.twtstudio.wepeiyanglite.model.AvailableRoom;
 import com.twtstudio.wepeiyanglite.model.GalleryIndexItem;
 import com.twtstudio.wepeiyanglite.model.GalleryPhotos;
 import com.twtstudio.wepeiyanglite.model.NewsItem;
+import com.twtstudio.wepeiyanglite.model.SchoolBuildings;
 import com.twtstudio.wepeiyanglite.model.Token;
 
 import java.util.List;
@@ -33,4 +35,10 @@ public interface WePeiYang {
     //不要脸要的照片接口
     @GET("http://www.twt.edu.cn/mapi/galleries/{id}/photos")
     Observable<List<GalleryPhotos>> getGalleryPhotos(@Path("id") int id);
+
+    @GET("classrooms/buildings")
+    Observable<ApiResponse<SchoolBuildings>> getBuildingsId();
+
+    @GET("classrooms")
+    Observable<ApiResponse<List<String>>> getAvailableRooms(@Query("bid") int bid, @Query("time") String timeStamp);
 }

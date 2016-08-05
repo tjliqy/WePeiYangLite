@@ -2,10 +2,7 @@ package com.twtstudio.wepeiyanglite;
 
 import android.util.Log;
 
-import com.twtstudio.wepeiyanglite.api.ApiSubscriber;
-import com.twtstudio.wepeiyanglite.api.OnNextListener;
-import com.twtstudio.wepeiyanglite.api.WePeiYangClient;
-import com.twtstudio.wepeiyanglite.model.GalleryIndex;
+
 
 import org.junit.Test;
 

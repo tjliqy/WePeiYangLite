@@ -6,9 +6,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.github.florent37.glidepalette.BitmapPalette;
+import com.github.florent37.glidepalette.GlidePalette;
 import com.twtstudio.wepeiyanglite.R;
 import com.twtstudio.wepeiyanglite.common.ui.PActivity;
 import com.twtstudio.wepeiyanglite.model.GalleryPhotos;
@@ -30,6 +33,8 @@ public class PhotoActivity extends PActivity<PhotoPresenter> implements PhotoVie
     TextView mContentCollasping;
     @BindView(R.id.photo_recyclerview)
     RecyclerView mRecyclerView;
+    @BindView(R.id.photo_content_container)
+    LinearLayout mContentContainer;
     private int mId;
     private String mImageUrl;
     private String mContent;
@@ -57,20 +62,21 @@ public class PhotoActivity extends PActivity<PhotoPresenter> implements PhotoVie
 
     @Override
     protected int getStatusbarColor() {
-        return android.R.color.holo_blue_dark;
+        return android.R.color.holo_blue_light;
     }
 
     @Override
     protected void preInitView() {
         Glide.with(this).load(mImageUrl).into(mPhotoCollasping);
+
         mContentCollasping.setText(mContent);
-        getSupportActionBar().setTitle(".....");
+        getSupportActionBar().setTitle(mTitle);
         super.preInitView();
     }
 
     @Override
     protected void initView() {
-        mAdapter=new PhotoAdapter(this);
+        mAdapter = new PhotoAdapter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
         mPresenter.getPhotos(mId);
